@@ -1,3 +1,11 @@
+/*
+ * AppIntegrationTest.java
+ * 
+ * Copyright Gaurav Rawat 
+ *
+ * @author Gaurav Rawat 2016
+ * 
+ */
 package me.gauravbrills;
 
 import org.junit.Test;
@@ -14,12 +22,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/** The Constant LOG. */
 @Slf4j
 public class AppIntegrationTest extends AbstractWebIntegrationTest {
 
+	/** The person repository. */
 	@Autowired
 	PersonRepository personRepository;
 
+	/**
+	 * Use multiple repositories.
+	 */
 	@Test
 	public void useMultipleRepositories() {
 
@@ -32,6 +45,11 @@ public class AppIntegrationTest extends AbstractWebIntegrationTest {
 
 	}
 
+	/**
+	 * Test persons endpoint.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testPersonsEndpoint() throws Exception {
 		final ResultActions result = mvc.perform(get("/persons")).andDo(print());
@@ -40,6 +58,11 @@ public class AppIntegrationTest extends AbstractWebIntegrationTest {
 				.andExpect(jsonPath("$._embedded.gauravbrills:persons", hasSize(2)));
 	}
 
+	/**
+	 * Test persons endpoint doesnt have last name.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	@WithMockUser(roles={"USER"},username="ReadConsumer",value="Reader")
 	public void testPersonsEndpointDoesntHaveLastName() throws Exception {

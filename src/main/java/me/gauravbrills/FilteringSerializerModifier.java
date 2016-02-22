@@ -1,3 +1,11 @@
+/*
+ * FilteringSerializerModifier.java
+ * 
+ * Copyright Gaurav Rawat 
+ *
+ * @author Gaurav Rawat 2016
+ * 
+ */
 package me.gauravbrills;
 
 import java.util.List;
@@ -18,9 +26,12 @@ import me.gauravbrills.accesscontrol.ExcludedField;
  * The Class FilteringSerializerModifier. the custom modifier
  */
 @Component
+
+/** The Constant LOG. */
 @Slf4j
 public class FilteringSerializerModifier extends BeanSerializerModifier {
 
+	/** The role based filter service. */
 	private @Autowired RoleBasedFilterService roleBasedFilterService;
 
 	/*

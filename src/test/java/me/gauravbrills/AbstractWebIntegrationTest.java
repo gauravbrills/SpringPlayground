@@ -1,4 +1,9 @@
-/**
+/*
+ * AbstractWebIntegrationTest.java
+ * 
+ * Copyright Gaurav Rawat 
+ *
+ * @author Gaurav Rawat 2016
  * 
  */
 package me.gauravbrills;
@@ -19,8 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * @author grawat
+ * The Class AbstractWebIntegrationTest.
  *
+ * @author grawat
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SpringBootPlaygroundApplication.class)
@@ -28,12 +34,21 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @DirtiesContext
 public abstract class AbstractWebIntegrationTest {
+	
+	/** The spring security filter chain. */
 	@Resource
 	protected Filter springSecurityFilterChain;
+	
+	/** The mvc. */
 	protected MockMvc mvc;
+	
+	/** The context. */
 	@Autowired
 	protected WebApplicationContext context;
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(context).//

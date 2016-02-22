@@ -1,3 +1,11 @@
+/*
+ * SpringBootPlaygroundApplication.java
+ * 
+ * Copyright Gaurav Rawat 
+ *
+ * @author Gaurav Rawat 2016
+ * 
+ */
 package me.gauravbrills;
 
 import javax.annotation.PostConstruct;
@@ -16,23 +24,45 @@ import me.gauravbrills.accesscontrol.ExcludedFieldRepository;
 import me.gauravbrills.person.Person;
 import me.gauravbrills.person.PersonRepository;
 
+/**
+ * The Class SpringBootPlaygroundApplication.
+ */
 @SpringBootApplication
 @EnableEntityLinks
 public class SpringBootPlaygroundApplication {
+	
+	/** The curie namespace. */
 	public static String CURIE_NAMESPACE = "gauravbrills";
+	
+	/** The person repository. */
 	@Autowired
 	private PersonRepository personRepository;
+	
+	/** The excluded field repository. */
 	@Autowired
 	private ExcludedFieldRepository excludedFieldRepository;
 
+	/**
+	 * Curie provider.
+	 *
+	 * @return the curie provider
+	 */
 	public @Bean CurieProvider curieProvider() {
 		return new DefaultCurieProvider(CURIE_NAMESPACE, new UriTemplate("/docs/{rel}.html"));
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootPlaygroundApplication.class, args);
 	}
 
+	/**
+	 * Bootstrap.
+	 */
 	@PostConstruct
 	private void bootstrap() {
 		personRepository.save(new Person("Gaurav", "Rawat"));
