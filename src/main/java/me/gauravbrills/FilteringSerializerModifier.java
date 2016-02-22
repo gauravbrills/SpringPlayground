@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 
 import lombok.extern.slf4j.Slf4j;
+import me.gauravbrills.accesscontrol.ExcludedField;
 
 /**
  * The Class FilteringSerializerModifier. the custom modifier
@@ -34,7 +35,7 @@ public class FilteringSerializerModifier extends BeanSerializerModifier {
 			final List<BeanPropertyWriter> beanProperties) {
 		final String beanClass = beanDesc.getBeanClass().getSimpleName();
 
-		final List<String> filters = roleBasedFilterService.getFieldSetBasedOnRoleAndEntity(beanClass);
+		final List<ExcludedField> filters = roleBasedFilterService.getFieldSetBasedOnRoleAndEntity(beanClass);
 
 		if (filters.isEmpty()) {
 			return beanProperties;
@@ -44,7 +45,7 @@ public class FilteringSerializerModifier extends BeanSerializerModifier {
 
 		return filters.stream()
 				.flatMap(exclusion -> beanProperties.stream().//
-						filter(property -> !exclusion.equals(property.getName())).collect(Collectors.toList()).stream())
+						filter(property -> !exclusion.getFieldName().equals(property.getName())).collect(Collectors.toList()).stream())
 				.collect(Collectors.toList());
 	}
 

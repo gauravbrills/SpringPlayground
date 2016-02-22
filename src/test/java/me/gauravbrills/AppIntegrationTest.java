@@ -3,6 +3,7 @@ package me.gauravbrills;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +39,9 @@ public class AppIntegrationTest extends AbstractWebIntegrationTest {
 				.andExpect(content().contentType(MediaTypes.HAL_JSON))//
 				.andExpect(jsonPath("$._embedded.gauravbrills:persons", hasSize(2)));
 	}
-	
+
 	@Test
+	@WithMockUser(roles={"USER"},username="ReadConsumer",value="Reader")
 	public void testPersonsEndpointDoesntHaveLastName() throws Exception {
 		final ResultActions result = mvc.perform(get("/persons")).andDo(print());
 		result.andExpect(status().isOk())//

@@ -2,8 +2,10 @@ package me.gauravbrills;
 
 import java.util.List;
 
+import me.gauravbrills.accesscontrol.ExcludedField;
+
 public interface RoleBasedFilterService {
 
-	List<String> getFieldSetBasedOnRoleAndEntity(String beanClass);
+	List<ExcludedField> getFieldSetBasedOnRoleAndEntity(String beanClass);
 
 }

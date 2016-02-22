@@ -37,8 +37,9 @@ public abstract class AbstractWebIntegrationTest {
 	@Before
 	public void setup() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(context).//
-		// apply(configurer)
-		build();
+				//addFilters(springSecurityFilterChain)//
+				// apply(configurer)
+				build();
 
 	}
 

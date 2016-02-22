@@ -11,6 +11,8 @@ import org.springframework.hateoas.config.EnableEntityLinks;
 import org.springframework.hateoas.hal.CurieProvider;
 import org.springframework.hateoas.hal.DefaultCurieProvider;
 
+import me.gauravbrills.accesscontrol.ExcludedField;
+import me.gauravbrills.accesscontrol.ExcludedFieldRepository;
 import me.gauravbrills.person.Person;
 import me.gauravbrills.person.PersonRepository;
 
@@ -19,7 +21,9 @@ import me.gauravbrills.person.PersonRepository;
 public class SpringBootPlaygroundApplication {
 	public static String CURIE_NAMESPACE = "gauravbrills";
 	@Autowired
-	PersonRepository personRepository;
+	private PersonRepository personRepository;
+	@Autowired
+	private ExcludedFieldRepository excludedFieldRepository;
 
 	public @Bean CurieProvider curieProvider() {
 		return new DefaultCurieProvider(CURIE_NAMESPACE, new UriTemplate("/docs/{rel}.html"));
@@ -33,5 +37,7 @@ public class SpringBootPlaygroundApplication {
 	private void bootstrap() {
 		personRepository.save(new Person("Gaurav", "Rawat"));
 		personRepository.save(new Person("Dead", "Pool"));
+		// put some mock stuff 
+		excludedFieldRepository.save(new ExcludedField("lastName","ROLE_USER","Person"));
 	}
 }

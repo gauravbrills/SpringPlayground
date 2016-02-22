@@ -1,5 +1,9 @@
 spring:
   output:
     ansi:
-      enabled: always
-      
+      enabled: ALWAYS
+  jpa:
+    show-sql: true
+  main:
+    banner-mode: off
+     
