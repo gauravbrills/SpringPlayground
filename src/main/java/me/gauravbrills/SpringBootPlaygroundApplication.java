@@ -9,15 +9,19 @@
 package me.gauravbrills;
 
 import javax.annotation.PostConstruct;
+import javax.jms.Queue;
 
+import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.hateoas.UriTemplate;
 import org.springframework.hateoas.config.EnableEntityLinks;
 import org.springframework.hateoas.hal.CurieProvider;
 import org.springframework.hateoas.hal.DefaultCurieProvider;
+import org.springframework.jms.annotation.EnableJms;
 
 import me.gauravbrills.accesscontrol.ExcludedField;
 import me.gauravbrills.accesscontrol.ExcludedFieldRepository;
@@ -29,6 +33,7 @@ import me.gauravbrills.person.PersonRepository;
  */
 @SpringBootApplication
 @EnableEntityLinks
+@EnableJms
 public class SpringBootPlaygroundApplication {
 	
 	/** The curie namespace. */
@@ -51,6 +56,11 @@ public class SpringBootPlaygroundApplication {
 		return new DefaultCurieProvider(CURIE_NAMESPACE, new UriTemplate("/docs/{rel}.html"));
 	}
 
+	@Bean
+	public Queue queue() {
+		return new ActiveMQQueue("TRADE_EB_POST_QUEUE");
+	}
+	
 	/**
 	 * The main method.
 	 *
