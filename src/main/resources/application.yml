@@ -6,4 +6,6 @@ spring:
     show-sql: true
   main:
     banner-mode: off
-     
+  activemq:
+     in-memory: true
+     pooled: false    
